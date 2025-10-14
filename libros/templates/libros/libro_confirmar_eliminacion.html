@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Confirmar Eliminación{% endblock %}
+
+{% block content %}
+    <div class="card p-4 shadow-lg border-danger" style="max-width: 500px; margin: auto;">
+        <div class="card-body text-center">
+            <i class="bi bi-exclamation-triangle-fill text-danger display-4 mb-3"></i>
+            <h2 class="card-title mb-4" style="color: var(--pastel-pink-dark);">¿Estás seguro?</h2>
+            
+            <p class="card-text fs-5">
+                Estás a punto de eliminar el libro: <br>
+                <strong>"{{ object.titulo }}"</strong> (ID: {{ object.pk }})
+            </p>
+            <p class="text-danger fw-bold">¡Esta acción no se puede deshacer!</p>
+
+            <form method="post" class="mt-4 d-flex justify-content-between">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger-pastel flex-fill me-2">
+                    <i class="bi bi-trash"></i> Sí, Eliminar Permanentemente
+                </button>
+                
+                <a href="{% url 'libros:detalle' pk=object.pk %}" class="btn btn-pastel-secondary flex-fill ms-2">
+                    <i class="bi bi-x-circle"></i> Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle del Préstamo: #{{ object.pk }}{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-header card-header-pastel">
+        <h2 class="mb-0"><i class="bi bi-info-circle me-2"></i> Detalle del Préstamo #{{ object.pk }}</h2>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">Libro:</dt>
+            <dd class="col-sm-8 fw-bold">
+                <a href="{% url 'libros:detalle' pk=object.libro.pk %}" style="color: var(--text-primary);">{{ object.libro.titulo }}</a>
+            </dd>
+
+            <dt class="col-sm-4">Usuario:</dt>
+            <dd class="col-sm-8">{{ object.usuario.username }}</dd>
+
+            <dt class="col-sm-4">Fecha de Préstamo:</dt>
+            <dd class="col-sm-8">{{ object.fecha_prestamo|date:"d M Y" }}</dd>
+
+            <dt class="col-sm-4">Fecha de Devolución:</dt>
+            <dd class="col-sm-8">{{ object.fecha_devolucion|date:"d M Y" }}</dd>
+
+            <dt class="col-sm-4">Estado:</dt>
+            <dd class="col-sm-8">
+                {% if object.devuelto %}
+                    <span class="badge bg-success fs-6">DEVUELTO</span>
+                {% else %}
+                    <span class="badge" style="background-color: var(--pastel-pink); color: var(--text-dark); font-size: 1rem;">PENDIENTE</span>
+                {% endif %}
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer text-end">
+        <a href="{% url 'prestamos:editar' pk=object.pk %}" class="btn btn-warning me-2">
+            <i class="bi bi-pencil"></i> Editar
+        </a>
+        <a href="{% url 'prestamos:eliminar' pk=object.pk %}" class="btn btn-danger me-2">
+            <i class="bi bi-trash"></i> Eliminar
+        </a>
+        <a href="{% url 'prestamos:listado' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Volver al Listado
+        </a>
+    </div>
+</div>
+{% endblock %}

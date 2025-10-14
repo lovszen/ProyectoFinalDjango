@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Listado de Categorías{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4" style="color: var(--pastel-pink-dark);"><i class="bi bi-tags-fill me-2"></i> Categorías de Libros</h1>
+
+    <a href="{% url 'categorias:crear' %}" class="btn btn-pastel-primary mb-3">
+        <i class="bi bi-plus-circle"></i> Nueva Categoría
+    </a>
+
+    {% if object_list %}
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped mb-0">
+                        <thead class="bg-pastel-lavender">
+                            <tr>
+                                <th style="width: 10%;">ID</th>
+                                <th>Nombre</th>
+                                <th style="width: 25%;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for categoria in object_list %}
+                                <tr>
+                                    <td>{{ categoria.pk }}</td>
+                                    <td>
+                                        <a href="{% url 'categorias:detalle' pk=categoria.pk %}" style="color: var(--pastel-pink-dark); font-weight: 600;">
+                                            {{ categoria.nombre }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                    
+                                        <a href="{% url 'categorias:editar' pk=categoria.pk %}" class="btn btn-sm btn-info me-2" title="Editar">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a href="{% url 'categorias:eliminar' pk=categoria.pk %}" class="btn btn-sm btn-danger" title="Eliminar">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-warning" style="background-color: var(--pastel-pink);" role="alert">
+            <i class="bi bi-info-circle me-2"></i> No se encontraron categorías registradas.
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle de {{ libro.titulo }}{% endblock %}
+
+{% block content %}
+    <div class="card shadow-lg border-0 rounded-3" style="max-width: 900px; margin: auto;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                {% if libro.imagen %}
+                    <img src="{{ libro.imagen.url }}" class="img-fluid rounded-start" alt="Portada de {{ libro.titulo }}" 
+                         style="object-fit: cover; height: 100%; width: 100%; border-right: 1px solid var(--pastel-lavender);">
+                {% else %}
+                    <div class="d-flex align-items-center justify-content-center bg-light rounded-start p-5" 
+                         style="min-height: 400px; background-color: var(--pastel-mint-light) !important;">
+                        <h5 class="text-muted text-center"><i class="bi bi-image-fill me-2"></i> Sin Portada</h5>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="col-md-8">
+                <div class="card-body p-4">
+                    <h1 class="card-title display-5 mb-1" style="color: var(--pastel-pink-dark);">{{ libro.titulo }}</h1>
+                    <p class="card-text text-muted mb-4">
+                        Por **{{ libro.autor }}** ({{ libro.ano }})
+                    </p>
+                    <hr class="mb-4" style="border-top: 1px solid var(--pastel-lavender);">
+                    
+                    <dl class="row">
+                        <dt class="col-sm-3 text-muted">Categoría:</dt>
+                        <dd class="col-sm-9">
+                            {% if libro.categoria %}
+                                <a href="{% url 'categorias:detalle' pk=libro.categoria.pk %}" class="badge text-decoration-none" 
+                                   style="background-color: var(--pastel-lavender); color: var(--text-dark); font-size: 0.95rem;">
+                                    <i class="bi bi-tag-fill me-1"></i> {{ libro.categoria.nombre }}
+                                </a>
+                            {% else %}
+                                <span class="badge bg-secondary">Sin Categoría</span>
+                            {% endif %}
+                        </dd>
+
+                        <dt class="col-sm-3 text-muted">Stock:</dt>
+                        <dd class="col-sm-9">
+                            {% if libro.stock > 0 %}
+                                <span class="badge rounded-pill bg-success-pastel">
+                                    <i class="bi bi-check-circle me-1"></i> Disponible ({{ libro.stock }})
+                                </span>
+                            {% else %}
+                                <span class="badge rounded-pill bg-danger-pastel">
+                                    <i class="bi bi-x-octagon me-1"></i> Agotado
+                                </span>
+                            {% endif %}
+                        </dd>
+                    </dl>
+
+                    <div class="mt-5 pt-3 border-top d-flex flex-wrap gap-2">
+                        <a href="{% url 'libros:editar' pk=libro.pk %}" class="btn btn-pastel-secondary">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a href="{% url 'libros:eliminar' pk=libro.pk %}" class="btn btn-danger-pastel">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </a>
+                        <a href="{% url 'libros:listado' %}" class="btn btn-pastel-light">
+                            <i class="bi bi-arrow-left"></i> Volver al Listado
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

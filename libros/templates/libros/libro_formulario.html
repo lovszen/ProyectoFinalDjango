@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {% if form.instance.pk %}
+        Editar Libro: {{ form.instance.titulo }}
+    {% else %}
+        Crear Nuevo Libro
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data" class="card p-4 shadow-sm" style="max-width: 600px; margin: auto;">
+        {% csrf_token %}
+        
+        <h2 class="mb-4" style="color: var(--pastel-pink-dark);">
+            {% if form.instance.pk %}
+                <i class="bi bi-pencil-square me-2"></i> Editar: {{ form.instance.titulo }}
+            {% else %}
+                <i class="bi bi-plus-circle me-2"></i> Nuevo Libro
+            {% endif %}
+        </h2>
+
+        {{ form|crispy }}
+
+        <div class="d-flex justify-content-between mt-4 pt-3 border-top">
+            <!-- Botón de guardado (Pastel Primary) -->
+            <button type="submit" class="btn btn-pastel-primary">
+                <i class="bi bi-save"></i> Guardar
+            </button>
+            
+            <a href="{% url 'libros:listado' %}" class="btn btn-pastel-light">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </a>
+        </div>
+    </form>
+{% endblock %}

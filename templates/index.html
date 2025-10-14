@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Bienvenido a tu Biblioteca Pastel{% endblock %}
+
+{% block content %}
+    <div class="container text-center py-5">
+        <h1 class="display-3 fw-bolder mb-3" style="color: var(--pastel-pink-dark);">
+            <i class="bi bi-balloon-heart-fill me-2"></i> Tu Rincón de Lectura
+        </h1>
+        <p class="lead mb-5 fs-4" style="color: var(--text-dark);">
+            Administra tus libros, categorías y préstamos con un toque de dulzura.
+        </p>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="card shadow-lg h-100 border-0 rounded-4" style="background-color: var(--pastel-mint);">
+                    <div class="card-body p-4">
+                        <i class="bi bi-book-fill display-4 mb-3" style="color: var(--pastel-mint-dark);"></i>
+                        <h5 class="card-title fw-bold" style="color: var(--text-dark);">Libros</h5>
+                        <p class="card-text">Explora, añade y edita toda tu colección.</p>
+                        <a href="{% url 'libros:listado' %}" class="btn btn-pastel-primary mt-2">
+                            Ver Libros <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-lg h-100 border-0 rounded-4" style="background-color: var(--pastel-peach);">
+                    <div class="card-body p-4">
+                        <i class="bi bi-arrow-left-right display-4 mb-3" style="color: var(--pastel-peach-dark);"></i>
+                        <h5 class="card-title fw-bold" style="color: var(--text-dark);">Préstamos</h5>
+                        <p class="card-text">Registra y administra los libros prestados.</p>
+                        <a href="{% url 'prestamos:listado' %}" class="btn btn-pastel-primary mt-2">
+                            Ver Préstamos <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-lg h-100 border-0 rounded-4" style="background-color: var(--pastel-lavender);">
+                    <div class="card-body p-4">
+                        <i class="bi bi-tags-fill display-4 mb-3" style="color: var(--pastel-lavender-dark);"></i>
+                        <h5 class="card-title fw-bold" style="color: var(--text-dark);">Categorías</h5>
+                        <p class="card-text">Organiza tu contenido por géneros y temas.</p>
+                        <a href="{% url 'categorias:listado' %}" class="btn btn-pastel-primary mt-2">
+                            Ver Categorías <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5 pt-3">
+            <a href="{% url 'admin:index' %}" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-lock-fill me-1"></i> Ir al Panel de Administración
+            </a>
+        </div>
+    </div>
+{% endblock %}

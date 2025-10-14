@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle de {{ object.nombre }}{% endblock %}
+
+{% block content %}
+    <div class="card shadow-lg border-0 rounded-3 p-4" style="max-width: 500px; margin: auto;">
+        <div class="card-body text-center">
+            <i class="bi bi-bookmark-heart-fill display-3 mb-3" style="color: var(--pastel-mint-dark);"></i>
+            <h1 class="card-title display-5 mb-4" style="color: var(--pastel-pink-dark);">{{ object.nombre }}</h1>
+            
+            <dl class="row text-start mx-auto" style="max-width: 300px;">
+                <dt class="col-sm-6 text-muted">ID de Categoría:</dt>
+                <dd class="col-sm-6 fw-bold">{{ object.pk }}</dd>
+            </dl>
+            
+            <hr class="mt-4 mb-4" style="border-top: 1px solid var(--pastel-lavender);">
+
+            <div class="d-flex flex-wrap gap-2 justify-content-center">
+                <a href="{% url 'categorias:editar' pk=object.pk %}" class="btn btn-pastel-secondary">
+                    <i class="bi bi-pencil"></i> Editar
+                </a>
+                <a href="{% url 'categorias:eliminar' pk=object.pk %}" class="btn btn-danger-pastel">
+                    <i class="bi bi-trash"></i> Eliminar
+                </a>
+                <a href="{% url 'categorias:listado' %}" class="btn btn-pastel-light">
+                    <i class="bi bi-arrow-left"></i> Volver al Listado
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

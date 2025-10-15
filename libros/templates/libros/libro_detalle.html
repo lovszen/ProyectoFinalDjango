@@ -20,8 +20,12 @@
             <div class="col-md-8">
                 <div class="card-body p-4">
                     <h1 class="card-title display-5 mb-1" style="color: var(--pastel-pink-dark);">{{ libro.titulo }}</h1>
-                    <p class="card-text text-muted mb-4">
-                        Por **{{ libro.autor }}** ({{ libro.ano }})
+                    <p class="card-text mb-4">
+                        <span class="fw-bold" style="color: var(--pastel-pink-dark);">Autor:</span> 
+                        <span class="text-muted">{{ libro.autor }}</span>
+                        {% if libro.ano %}
+                        <span class="text-muted"> • {{ libro.ano }}</span>
+                        {% endif %}
                     </p>
                     <hr class="mb-4" style="border-top: 1px solid var(--pastel-lavender);">
                     
@@ -67,4 +71,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
+{% endblock %}```

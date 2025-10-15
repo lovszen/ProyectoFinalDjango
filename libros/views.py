@@ -13,6 +13,7 @@ class LibroListado(ListView):
     template_name = 'libros/libro_listado.html'
     context_object_name = 'libros'
     paginate_by = 5 
+    
     def get_queryset(self):
         queryset = super().get_queryset().order_by('titulo')
 
@@ -47,14 +48,14 @@ class LibroDetalle(DetailView):
 class LibroCrear(SuccessMessageMixin, CreateView):
     model = Libro
     template_name = 'libros/libro_formulario.html'
-    fields = ['titulo', 'autor', 'categoria', 'stock', 'portada'] 
+    fields = ['titulo', 'autor', 'categoria', 'descripcion', 'isbn', 'fecha_publicacion', 'imagen', 'stock']
     success_url = reverse_lazy('libros:listado')
     success_message = "El libro '%(titulo)s' fue creado exitosamente"
     
 class LibroActualizar(SuccessMessageMixin, UpdateView):
     model = Libro
     template_name = 'libros/libro_formulario.html'
-    fields = ['titulo', 'autor', 'categoria', 'stock', 'portada'] 
+    fields = ['titulo', 'autor', 'categoria', 'descripcion', 'isbn', 'fecha_publicacion', 'imagen', 'stock']
     success_url = reverse_lazy('libros:listado')
     success_message = "El libro '%(titulo)s' fue actualizado exitosamente"
 

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Nuevo Préstamo - Biblioteca Cute{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header" style="background-color: var(--pastel-pink);">
+                <h4 class="mb-0"><i class="bi bi-journal-plus me-2"></i>Registrar Nuevo Préstamo</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-pastel-primary">
+                            <i class="bi bi-check-lg me-1"></i>Registrar Préstamo
+                        </button>
+                        <a href="{% url 'prestamos:listado' %}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle me-1"></i>Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

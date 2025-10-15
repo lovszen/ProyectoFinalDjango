@@ -11,7 +11,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 class LibroListado(ListView):
     model = Libro
     template_name = 'libros/libro_listado.html'
-    context_object_name = 'libros'
+    context_object_name = 'object_list'
     paginate_by = 5 
     
     def get_queryset(self):

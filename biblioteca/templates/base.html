@@ -114,6 +114,41 @@
             background-color: var(--pastel-peach) !important;
             color: var(--pastel-peach-dark) !important;
         }
+
+        /* SOLUCIÓN PARA LA TABLA DE LIBROS - AGREGADO */
+        .content-container .table-container,
+        .content-container .table-responsive,
+        .content-container table,
+        .content-container tbody {
+            max-height: none !important;
+            height: auto !important;
+            overflow: visible !important;
+        }
+
+        .content-container table {
+            display: table !important;
+            width: 100% !important;
+        }
+
+        .content-container tbody {
+            display: table-row-group !important;
+        }
+
+        .content-container tr {
+            display: table-row !important;
+        }
+
+        .content-container td,
+        .content-container th {
+            display: table-cell !important;
+        }
+
+        /* Asegura que todas las filas sean visibles */
+        .content-container table tbody tr {
+            visibility: visible !important;
+            opacity: 1 !important;
+            height: auto !important;
+        }
     </style>
 </head>
 <body>

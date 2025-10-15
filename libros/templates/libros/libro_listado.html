@@ -10,8 +10,7 @@
     </a>
 
     {% if object_list %}
-        <div class="table-responsive">
-           
+        <div>
             <table class="table table-hover table-striped">
                 <thead>
                     <tr>
@@ -26,7 +25,6 @@
                     {% for libro in object_list %}
                         <tr>
                             <td>
-                            
                                 {% if libro.imagen %}
                                     <img src="{{ libro.imagen.url }}" alt="Portada de {{ libro.titulo }}" style="width: 50px; height: 70px; object-fit: cover; border-radius: 5px; border: 1px solid var(--pastel-lavender);">
                                 {% else %}
@@ -37,7 +35,6 @@
                                 {% endif %}
                             </td>
                             <td>
-                            
                                 <a href="{% url 'libros:detalle' pk=libro.pk %}" style="color: var(--pastel-pink-dark); font-weight: 600;">
                                     {{ libro.titulo }}
                                 </a>
@@ -45,7 +42,6 @@
                             <td>{{ libro.autor }}</td>
                             <td>{{ libro.categoria.nombre|default:"Sin Categoría" }}</td>
                             <td>
-                            
                                 <a href="{% url 'libros:editar' pk=libro.pk %}" class="btn btn-sm btn-info me-2" title="Editar">
                                     <i class="bi bi-pencil"></i>
                                 </a>
@@ -58,6 +54,59 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- PAGINACIÓN -->
+        {% if is_paginated %}
+        <nav aria-label="Navegación de páginas" class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" style="background-color: var(--pastel-lavender); color: var(--text-dark); border-color: var(--pastel-lavender-dark);">
+                        <i class="bi bi-chevron-double-left"></i> Primera
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" style="background-color: var(--pastel-lavender); color: var(--text-dark); border-color: var(--pastel-lavender-dark);">
+                        <i class="bi bi-chevron-left"></i> Anterior
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link" style="background-color: var(--pastel-pink); border-color: var(--pastel-pink-dark); color: var(--text-dark); font-weight: 600;">
+                            {{ num }}
+                        </span>
+                    </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}" style="background-color: var(--pastel-lavender); color: var(--text-dark); border-color: var(--pastel-lavender-dark);">
+                            {{ num }}
+                        </a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" style="background-color: var(--pastel-lavender); color: var(--text-dark); border-color: var(--pastel-lavender-dark);">
+                        Siguiente <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" style="background-color: var(--pastel-lavender); color: var(--text-dark); border-color: var(--pastel-lavender-dark);">
+                        Última <i class="bi bi-chevron-double-right"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            <p class="text-center text-muted mt-2">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }} - Mostrando {{ object_list|length }} libro{{ object_list|length|pluralize }}
+            </p>
+        </nav>
+        {% endif %}
+
     {% else %}
         <div class="alert alert-warning" style="background-color: var(--pastel-pink);" role="alert">
             <i class="bi bi-info-circle me-2"></i> ¡Oops! Parece que no hay libros registrados todavía.
